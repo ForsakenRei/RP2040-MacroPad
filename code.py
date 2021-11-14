@@ -54,18 +54,19 @@ macropad.pixels.auto_write = False
 # Set up displayio group with all the labels
 group = displayio.Group()
 for key_index in range(12):
-    x = key_index % 3
-    y = key_index // 3
+    y = key_index % 3
+    x = key_index // 3
     group.append(
         label.Label(
             terminalio.FONT,
             text="",
             color=0xFFFFFF,
             anchored_position=(
-                (macropad.display.height - 1) * x / 2,
-                macropad.display.width - 1 - (3 - y) * 12,
+                # (macropad.display.width - 1) * x / 2,
+                macropad.display.width * 0.5,
+                macropad.display.height * 0.5 + 2 - (1 - y) * 12,
             ),
-            anchor_point=(x / 2, 1.0),
+            anchor_point=(0.5, 0.5),
         )
     )
 group.append(Rect(0, 0, macropad.display.width, 12, fill=0xFFFFFF))
