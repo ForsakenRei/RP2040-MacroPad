@@ -18,28 +18,28 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-                        KC_0,
-      KC_F13,  KC_MUTE, KC_F21,
-      KC_F14,  KC_F18,  KC_F22,
-      KC_F15,  KC_F19,  KC_F23,
-      KC_F16,  KC_LGUI, KC_F24
+                    KC_MUTE,
+      KC_F13, KC_F17, KC_F21,
+      KC_F14, KC_F18, KC_F22,
+      KC_F15, KC_F19, KC_F23,
+      KC_F16, KC_F20, KC_F24
   ),
   [1] = LAYOUT(
-                        KC_1,
+                        _______,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, _______
   ),
   [2] = LAYOUT(
-                        KC_2,
+                        _______,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, _______
   ),
   [3] = LAYOUT(
-                        KC_3,
+                        _______,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, _______,
@@ -47,51 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-#define HIGHEST_LAYER 3 //replace X with your highest layer
-
-static uint8_t current_layer = 0;
-
-enum custom_keycodes {
-    KC_LUP = SAFE_RANGE, //cycle layers in up direction
-    KC_LDN //cycle layers in down direction
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  case KC_LUP:
-    if(record->event.pressed) {
-      if (current_layer == HIGHEST_LAYER){
-        for (int i=1; i<=HIGHEST_LAYER; i++){
-          layer_off(i);
-        }
-        current_layer=0;
-      } else { 
-        current_layer++;
-        layer_on(current_layer);
-      }
-    }
-    return false;
-  case KC_LDN:
-    if(record->event.pressed) {
-      if (current_layer == 0){
-        for (int i=1; i<=HIGHEST_LAYER; i++){
-          layer_on(i);
-        }
-        current_layer=HIGHEST_LAYER;
-      } else {
-        layer_off(current_layer);
-        current_layer--;
-      }
-    }
-    return false;
-  default:
-    return true;
-  }
-}  
-
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-  [0] = { ENCODER_CCW_CW(KC_LDN, KC_LUP) },
+  [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
   [1] = { ENCODER_CCW_CW(_______, _______) },
   [2] = { ENCODER_CCW_CW(_______, _______) },
   [3] = { ENCODER_CCW_CW(_______, _______) }
