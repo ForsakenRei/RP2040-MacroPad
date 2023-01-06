@@ -18,32 +18,32 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-                        KC_0,
-      KC_F13,  KC_MUTE, KC_F21,
-      KC_F14,  KC_F18,  KC_F22,
-      KC_F15,  KC_F19,  KC_F23,
-      KC_F16,  KC_LGUI, KC_F24
+                        _______,
+      KC_F13,  KC_MUTE, KC_MSTP,
+      KC_F14,  KC_NO,   KC_MPRV,
+      KC_F15,  KC_NO,   KC_MNXT,
+      KC_F16,  KC_LGUI, KC_MPLY
   ),
   [1] = LAYOUT(
-                        KC_1,
+                        _______,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, _______
   ),
   [2] = LAYOUT(
-                        KC_2,
+                        _______,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, _______
   ),
   [3] = LAYOUT(
-                        KC_3,
+                        _______,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, _______,
-      _______, _______, _______
+      _______, _______, QK_BOOT
   ),
 };
 
@@ -95,6 +95,34 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
   [1] = { ENCODER_CCW_CW(_______, _______) },
   [2] = { ENCODER_CCW_CW(_______, _______) },
   [3] = { ENCODER_CCW_CW(_______, _______) }
+};
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+// different layer will have different backlight, capslock only light up on base layer, winlock will light up in all all layers
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)
+{
+  switch (get_highest_layer(layer_state))
+  {
+  case 0:
+    rgb_matrix_set_color_all(0, 0, 0);
+    break;
+  case 1:
+    rgb_matrix_set_color_all(0, 0, 0);
+    rgb_matrix_set_color(0, 0, 255, 255);
+    break;
+  case 2:
+    rgb_matrix_set_color_all(0, 0, 0);
+    rgb_matrix_set_color(1, 255, 165, 0);
+    break;
+  case 3:
+    rgb_matrix_set_color_all(0, 0, 0);
+    rgb_matrix_set_color(2, 238, 130, 238);
+    break;
+  default:
+    break;
+  }
+  return false;
 };
 #endif
 
