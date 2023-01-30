@@ -4,5 +4,8 @@ https://www.adafruit.com/product/5128
 
 Can run both CircuitPython or QMK now.
 
+### To Do
+Use OLED to indicate current layer.
+
 ### Known Issue
-For QMK, if `RGB_MATRIX_ENABLE` = yes, macropad will be unresponsible or stuck the first key upon PC resume from sleep.
+Encoder won't wake up RGB.
