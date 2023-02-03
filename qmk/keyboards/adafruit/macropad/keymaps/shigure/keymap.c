@@ -16,11 +16,29 @@
 
 #include QMK_KEYBOARD_H
 
+bool is_alt_tab_active = false; // ADD this near the beginning of keymap.c
+uint16_t alt_tab_timer = 0;     // we will be using them soon.
+
+enum custom_keycodes {
+    KC_LUP = SAFE_RANGE, //cycle layers in up direction
+    KC_LDN, //cycle layers in down direction
+    ALT_TAB
+};
+
+void matrix_scan_user(void) { // The very important timer.
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 2000) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
                         _______,
       KC_F13,  KC_MUTE, KC_MSTP,
-      KC_F14,  A(KC_TAB), KC_MPRV,
+      KC_F14,  ALT_TAB, KC_MPRV,
       KC_F15,  G(KC_X), KC_MNXT,
       KC_F16,  KC_LGUI, KC_MPLY
   ),
@@ -33,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [2] = LAYOUT(
                         _______,
-      _______, _______, _______,
+      _______, _______, QK_RBT,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, QK_BOOT
@@ -44,10 +62,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static uint8_t current_layer = 0;
 
-enum custom_keycodes {
-    KC_LUP = SAFE_RANGE, //cycle layers in up direction
-    KC_LDN //cycle layers in down direction
-};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -77,10 +91,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     }
     return false;
+  case ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        }
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      return false;
   default:
     return true;
-  }
-}  
+  }  
+}
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
