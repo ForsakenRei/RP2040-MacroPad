@@ -37,10 +37,10 @@ void matrix_scan_user(void) { // The very important timer.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
                         _______,
-      KC_F13,  KC_MUTE, KC_MSTP,
-      KC_F14,  ALT_TAB, KC_MPRV,
+      KC_F13,  ALT_TAB, KC_MSTP,
+      KC_F14,  G(KC_I), KC_MPRV,
       KC_F15,  G(KC_X), KC_MNXT,
-      KC_F16,  KC_LGUI, KC_MPLY
+      KC_MUTE, KC_LGUI, KC_MPLY
   ),
   [1] = LAYOUT(
                         _______,
@@ -51,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [2] = LAYOUT(
                         _______,
-      _______, _______, QK_RBT,
-      _______, RGB_VAD, EE_CLR,
-      _______, RGB_VAI, _______,
+      RGB_HUD, RGB_HUI, QK_RBT,
+      RGB_VAD, RGB_VAI, EE_CLR,
+      RGB_SAD, RGB_SAI, _______,
       _______, _______, QK_BOOT
   ),
 };
