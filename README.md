@@ -18,5 +18,3 @@ Replace slightly burnt OLED.
 
 ### Known Issue
 - Encoder won't wake up RGB.
-- Cannot set `RGB_MATRIX_DEFAULT_VAL`.
-- `KC_VAD` and `KC_VAI` didn't work.

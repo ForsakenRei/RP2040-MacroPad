@@ -17,3 +17,5 @@
 #pragma once
 
 #define OLED_UPDATE_INTERVAL 200
+
+#define RGB_MATRIX_TIMEOUT 60000
