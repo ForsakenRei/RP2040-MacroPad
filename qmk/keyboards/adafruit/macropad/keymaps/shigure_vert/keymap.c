@@ -22,8 +22,11 @@ uint16_t alt_tab_timer = 0;     // we will be using them soon.
 enum custom_keycodes {
     KC_LUP = SAFE_RANGE, //cycle layers in up direction
     KC_LDN, //cycle layers in down direction
-    ALT_TAB
+    ALT_TAB,
+    WIN_POS
 };
+
+#define WIN_POS G(A(KC_SPACE))
 
 void matrix_scan_user(void) { // The very important timer.
   if (is_alt_tab_active) {
@@ -37,7 +40,7 @@ void matrix_scan_user(void) { // The very important timer.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
                         _______,
-      KC_ESC,  KC_F5,   ALT_TAB,
+      KC_ESC,  WIN_POS, ALT_TAB,
       G(KC_I), G(KC_X), KC_LGUI,
       KC_MPRV, KC_MNXT, KC_MPLY,
       KC_F13,  KC_F15,  KC_MUTE
